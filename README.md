@@ -34,7 +34,7 @@ void incrementCounter() {
 ```
 Berdasarkan kode di atas, setState() digunakan untuk mengubah variabel counter dimana setiap kali fungsi `incrementCounter()` dijalankan, flutter akan me-request kembali fungsi `build()` agar dijalankan sehingga tampilan bisa berubah. Variabel `counter` di atas jelas terdampak karena akan berubah setiap kali fungsi `incrementCounter()` dipanggil.
 
-### - Jelaskan perbedaan antara const dengan final.
+### - Jelaskan perbedaan antara `const` dengan `final`.
 `const` adalah sebuah keyword dalam dart untuk menyatakan state sebuah variabel. Nilai dari variabel yang di-state oleh `const` harus sudah ditentukan pada saat _compile time_, bukan saat program berjalan. Sementara keyword `final`, nilai yang di-state ditentukan pada saat program berjalan. Namun, keduanya sama-sama _immutable_ dan tidak bisa diubah.
 
 Contoh penggunaan:
