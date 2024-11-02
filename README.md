@@ -45,7 +45,20 @@ Dapat dilihat, `const` sudah ditentukan dan tidak dapat diganti sejak awal progr
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist-checklist di atas.
 
-#### 1. Membuat base app flutter dan merapikan proyek
+#### Membuat base app flutter dan merapikan proyek
 Instansiasi app flutter yang baru dengan menggunakan prompt `flutter create tokowee_mobile`, lalu dalam direktori `lib/` buat sebuah file dart baru, contohnya `menu.dart`. Lalu pindahkan beberapa class ke file baru tersebut agar proyek menjadi rapih dan terpisah. Jangan lupa untuk hilangkan parameter title dan ubah juga menjadi `StatelessWidget`
 
-#### 2. Buat tiga buah tombol sederhana dengan ikon dan teks
+#### Buat tiga buah tombol sederhana dengan ikon, teks dan warna yang berbeda
+Buat sebuah class sederhana yang menyatakan sebuah button dengan beberapa atributnya seperti nama, icon, dan warna (ditambahkan atribut warna agar per-_button_ dapat berbeda warna:
+```
+class HomeButtons {
+  final String name;
+  final IconData icon;
+  final Color color;
+
+  HomeButtons(this.name, this.icon, this.color);
+}
+```
+Lalu sambungkan class HomeButton dengan sebuah class yang meng-_extends_ `StatelessWidget` dimana class tersebut mengatur penampilan `SnackBar` dan juga penempatan string, icon, dll.
+
+Terakhir, tampilkan buttons yang sudah dibuat dalam class `MyHomePage`, tepatnya di dalam Widget Build di body dengan memanfaatkan fungsi `map` agar bisa menambahkan class class `HomeButtons` ke dalam sebuah list.
