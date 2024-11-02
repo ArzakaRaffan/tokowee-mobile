@@ -6,7 +6,7 @@ class MyHomePage extends StatelessWidget {
   final String desc = 'Welcome! We do and do things for you';
 
   final List<HomeButtons> items = [
-    HomeButtons("Lihat Daftar Produk", Icons.mood, const Color.fromARGB(255, 60, 60, 60)),
+    HomeButtons("Lihat Daftar Produk", Icons.visibility, const Color.fromARGB(255, 60, 60, 60)),
     HomeButtons("Tambah Produk", Icons.add, const Color.fromARGB(255, 50, 62, 99)),
     HomeButtons("Logout", Icons.logout, const Color.fromARGB(255, 97, 47, 44)),
   ];
@@ -93,9 +93,9 @@ class TokoWeeHeader extends StatelessWidget{
 class HomeButtons {
   final String name;
   final IconData icon;
-  final Color color; // Add color property
+  final Color color;
 
-  HomeButtons(this.name, this.icon, this.color); // Update constructor
+  HomeButtons(this.name, this.icon, this.color);
 }
 
 class ButtonCard extends StatelessWidget {
@@ -106,7 +106,7 @@ class ButtonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: item.color, // Use the color from HomeButtons
+      color: item.color, 
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
         onTap: () {
