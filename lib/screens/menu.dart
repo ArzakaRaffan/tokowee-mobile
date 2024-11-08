@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tokowee_mobile/widgets/left_drawer.dart';
+import 'package:tokowee_mobile/widgets/product_card.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -6,8 +8,8 @@ class MyHomePage extends StatelessWidget {
   final String desc = 'Welcome! We do and do things for you';
 
   final List<HomeButtons> items = [
-    HomeButtons("Lihat Daftar Produk", Icons.visibility, const Color.fromARGB(255, 60, 60, 60)),
-    HomeButtons("Tambah Produk", Icons.add, const Color.fromARGB(255, 50, 62, 99)),
+    HomeButtons("See Products", Icons.visibility, const Color.fromARGB(255, 60, 60, 60)),
+    HomeButtons("Add Products", Icons.add, const Color.fromARGB(255, 50, 62, 99)),
     HomeButtons("Logout", Icons.logout, const Color.fromARGB(255, 97, 47, 44)),
   ];
 
@@ -30,7 +32,11 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 29, 29, 29),
+        iconTheme: const IconThemeData(
+        color: Colors.white, // Set the icon color to white
+        ),
       ),
+      drawer: const LeftDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -84,58 +90,6 @@ class TokoWeeHeader extends StatelessWidget{
               color: Color.fromARGB(255, 255, 255, 255)
             ),)
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class HomeButtons {
-  final String name;
-  final IconData icon;
-  final Color color;
-
-  HomeButtons(this.name, this.icon, this.color);
-}
-
-class ButtonCard extends StatelessWidget {
-  final HomeButtons item;
-
-  const ButtonCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color, 
-      borderRadius: BorderRadius.circular(10),
-      child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
-            );
-        },
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );

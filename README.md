@@ -1,7 +1,75 @@
 # TOKOWEE 🏪
 ## We always do and do things for you!
 
-## Tugas 7 PBP 2024/2025
+## Tugas 8 PBP 2024/2025
+
+### Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
+`const` dalam flutter berjalan secara konstan selama aplikasi berjalan, yang memiliki arti bahwa sebuah objek `const` tidak perlu dibuat ulang setiap kali build dilakukan oleh flutter. Keuntungan penggunaan `const` adalah aplikasi dapat mengalami peningkatan kinerja, pengurangan penggunaan memori karena `const` berjalan secara konstan. Kita dapat menggunakan `const` apabila berhadapan dengan widget-widget statis yang tidak akan berubah selama jalannya aplikasi, widget yang digunakan secara berulang, dan juga penggunaan konstanta. Namun, `const` sebaiknya jangan dipakai pada widget yang dinamis dimana widget tersebut memiliki properti yang berubah-ubah.
+
+### Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+`column` digunakan untuk menyusun widget secara vertikal dari atas ke bawah. Sesuai namanya `column` akan mengatur objek sehingga berbentuk sebuah kolom. Sedangkan `Row`, digunakan untuk menyusun widget secara horizontal sehingga objek atau widget berbentuk baris.
+
+Contoh penggunaan `Column`:
+```
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Contoh Column')),
+        body: Column(
+          children: const [
+            Text('Item 1'),
+            Text('Item 2'),
+            Text('Item 3'),
+          ],
+        ),
+      ),
+```
+Kode di atas memposisikan tulisan Item 1, Item 2, dan Item 3 dalam bentuk kolom dari atas ke bawah. Dimana 'Item 1' akan diposisikan paling atas dan 'Item 3' akan diposisikan paling bawah
+
+Contoh penggunaan `Row`:
+```
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Contoh Row')),
+        body: Row(
+          children: const [
+            Text('Item 1'),
+            Text('Item 2'),
+            Text('Item 3'),
+          ],
+        ),
+      ),
+```
+Kode di atas memposisikan tulisan Item 1, Item 2, dan Item 3 dalam sebuah barisan kiri ke kanan. Dimana tulisan 'Item 1' akan berada di posisi paling kiri dan 'Item 3' akan berada di posisi paling kanan.
+
+### Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+Elemen input yang saya gunakan pada halaman form saya adalah `TextFormField` dimana user akan memberikan sebuah input berbentuk text yang bisa berupa string maupun integer. Lalu elemen input lain yang saya gunakana adalah `ElevatedButton` yang berfungsi mengirimkan sinyal berupa data yang di-input oleh user. Terdapat beberapa elemen input lain dalam flutter yang saya tidak gunakan seperti `Checkbox`, `RadioButton`, `DropDownButton`, `Slider`, dan lain-lain.
+
+### Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+Agar aplikasi konsisten dengan tema dan pewarnaan, pengaturan tema dilakukan pada file `main.dart` dalam widget `MaterialApp`:
+```
+    MaterialApp(
+      title: 'TokoWee',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+       primarySwatch: Colors.blueGrey,
+       ).copyWith(secondary: Colors.blueGrey[800]),
+        scaffoldBackgroundColor: Colors.black,
+        useMaterial3: true,
+      ),
+      home: MyHomePage(),
+    );
+```
+Widget ini dapat digunakan pada seluruh file dalam project flutter dimana warna dari widget-widget yang mengaplikasikan `MaterialApp` ini dapat menggunakan atribut `MaterialApp`. Dalam project ini, pengaplikasian tema dapat dilakukan dengan memanggil:
+```
+  backgroundColor: Theme.of(context).colorScheme.primary,
+```
+
+sehingga warna latar belakang dari sebuah fitur dapat sama dengan yang diinginkan pada tema aplikasi.
+
+### Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+Navigasi halaman pada aplikasi dapat dilakukan dengan berbagai cara. Beberapa cara navigasi yang saya tangani dalam aplikasi adalah dengan menggunakan beberapa method yakni `Navigator.pushReplacement()` yang memiliki fungsi menghapus route yang sedang ditampilkan dan menggantinya dengan route yang baru sehingga stack dari halaman menjadi hanya satu halaman, yakni halaman yang baru. Selanjutnya saya menggunakan `Navigator.push()` dimana fungsinya adalah menambahkan route baru di atas route lama sehingga jumlah stack menjadi dua. Terakhir, saya menggunakan `Navigator.pop()` yang fungsinya adalah menghapus route yang sedang ditampilkan dan menggantinya ke route sebelumnya di dalam stack.
+
+## Archive Tugas 📖
+
+## Tugas 7 PBP 2024/2025 🤖
 
 ### Jelaskan apa yang dimaksud dengan stateless widget dan stateful widget, dan jelaskan perbedaan dari keduanya.
 Stateless Widget adalah widget yang tidak memiliki state atau kondisi yang bisa berubah saat aplikasi berjalan. Stateless Widget bentuknya statis, data di dalamnya juga statis dan tidak akan berubah kecuali kode bagaimana widget di-render diubah. Sementara stateful widget adalah adalah widget yang memiliki state atau kondisi yang dapat berubah saat aplikasi berjalan. Saat state berubah, widget akan merender ulang tampilannya agar mencerminkan perubahan tersebut. Perbedaannya terletak pada fungsionalitas masing-masing widget, stateless widget bagus digunakan untuk item-item statis seperti teks, ikon, gambar, dan lain-lain. Sementara stateful widget dapat digunakan pada teks yang dinamis, form input, animasi, dan lain-lain.
@@ -62,3 +130,4 @@ class HomeButtons {
 Lalu sambungkan class HomeButton dengan sebuah class yang meng-_extends_ `StatelessWidget` dimana class tersebut mengatur penampilan `SnackBar` dan juga penempatan string, icon, dll.
 
 Terakhir, tampilkan buttons yang sudah dibuat dalam class `MyHomePage`, tepatnya di dalam Widget Build di body dengan memanfaatkan fungsi `map` agar bisa menambahkan class class `HomeButtons` ke dalam sebuah list.
+
