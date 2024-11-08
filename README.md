@@ -3,7 +3,7 @@
 
 ---
 
-## Tugas 8 PBP 2024/2025
+## Tugas 8 PBP 2024/2025 🧑‍💻🔗
 
 ### 1. Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
 `const` dalam flutter berjalan secara konstan selama aplikasi berjalan, yang memiliki arti bahwa sebuah objek `const` tidak perlu dibuat ulang setiap kali build dilakukan oleh flutter. Keuntungan penggunaan `const` adalah aplikasi dapat mengalami peningkatan kinerja, pengurangan penggunaan memori karena `const` berjalan secara konstan. Kita dapat menggunakan `const` apabila berhadapan dengan widget-widget statis yang tidak akan berubah selama jalannya aplikasi, widget yang digunakan secara berulang, dan juga penggunaan konstanta. Namun, `const` sebaiknya jangan dipakai pada widget yang dinamis dimana widget tersebut memiliki properti yang berubah-ubah.
