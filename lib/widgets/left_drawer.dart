@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tokowee_mobile/screens/menu.dart';
 import 'package:tokowee_mobile/screens/productform.dart';
+import 'package:tokowee_mobile/screens/list_productentry.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -76,6 +77,17 @@ class LeftDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const ProductForm(),
                   ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.remove_red_eye_outlined,color: Colors.white,),
+            title: const Text('See Products', style: TextStyle(color: Colors.white),),
+            onTap: () {
+              // Route menu ke halaman mood
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductEntryPage()),
+              );
             },
           ),
         ],

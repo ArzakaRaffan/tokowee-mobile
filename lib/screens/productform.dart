@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:tokowee_mobile/screens/menu.dart';
 import 'package:tokowee_mobile/widgets/left_drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ProductForm extends StatefulWidget {
   const ProductForm({super.key});
@@ -10,14 +15,15 @@ class ProductForm extends StatefulWidget {
 
 class _ProductFormState extends State<ProductForm> {
   final _formKey = GlobalKey<FormState>();
-  String _name = "";
-  int _price = 0;
-  int _stock = 0;
-  String _description = "";
-  String _category = "";
+  String _itemName = "";
+  int _itemPrice = 0;
+  int _itemStock = 0;
+  String _itemDescription = "";
+  String _itemCategory = "";
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -30,8 +36,7 @@ class _ProductFormState extends State<ProductForm> {
       ),
       drawer: const LeftDrawer(),
       body: Padding(
-        padding:
-            const EdgeInsets.only(top: 20.0),
+        padding: const EdgeInsets.only(top: 20.0),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -53,7 +58,7 @@ class _ProductFormState extends State<ProductForm> {
                     ),
                     onChanged: (String? value) {
                       setState(() {
-                        _name = value!;
+                        _itemName = value!;
                       });
                     },
                     validator: (String? value) {
@@ -85,7 +90,7 @@ class _ProductFormState extends State<ProductForm> {
                     ),
                     onChanged: (String? value) {
                       setState(() {
-                        _price = int.tryParse(value!) ?? 0;
+                        _itemPrice = int.tryParse(value!) ?? 0;
                       });
                     },
                     validator: (String? value) {
@@ -118,7 +123,7 @@ class _ProductFormState extends State<ProductForm> {
                     ),
                     onChanged: (String? value) {
                       setState(() {
-                        _stock = int.tryParse(value!) ?? 0;
+                        _itemStock = int.tryParse(value!) ?? 0;
                       });
                     },
                     validator: (String? value) {
@@ -140,6 +145,8 @@ class _ProductFormState extends State<ProductForm> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
                     style: const TextStyle(color: Colors.white),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
                     decoration: InputDecoration(
                       hintText: "Description",
                       labelText: "Description",
@@ -151,7 +158,7 @@ class _ProductFormState extends State<ProductForm> {
                     ),
                     onChanged: (String? value) {
                       setState(() {
-                        _description = value!;
+                        _itemDescription = value!;
                       });
                     },
                     validator: (String? value) {
@@ -177,7 +184,7 @@ class _ProductFormState extends State<ProductForm> {
                     ),
                     onChanged: (String? value) {
                       setState(() {
-                        _category = value!;
+                        _itemCategory = value!;
                       });
                     },
                     validator: (String? value) {
@@ -200,39 +207,37 @@ class _ProductFormState extends State<ProductForm> {
                         backgroundColor: WidgetStateProperty.all(
                             const Color.fromARGB(255, 29, 29, 29)),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title:
-                                    const Text('Product successfully saved!'),
-                                content: SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Name: $_name'),
-                                      Text('Price: \$$_price'),
-                                      Text('Stock: $_stock'),
-                                      Text('Description: $_description'),
-                                      Text('Category: $_category')
-                                    ],
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child: const Text('OK'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      _formKey.currentState!.reset();
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
+                          final response = await request.postJson(
+                            "http://127.0.0.1:8000/create-flutter/",
+                            jsonEncode(<String, String>{
+                              'itemName': _itemName,
+                              'itemPrice': _itemPrice.toString(),
+                              'itemDescription': _itemDescription,
+                              'itemStock': _itemStock.toString(),
+                              'itemCategory': _itemCategory,
+                            }),
                           );
+                          if (context.mounted) {
+                            if (response['status'] == 'success') {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("Mood baru berhasil disimpan!"),
+                              ));
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyHomePage()),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                    "Terdapat kesalahan, silakan coba lagi."),
+                              ));
+                            }
+                          }
                         }
                       },
                       child: const Text(
